@@ -1,5 +1,6 @@
 package br.com.luismatos.checklistresourceserver.entity;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
@@ -29,13 +30,13 @@ public class ChecklistItemEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long checklistItemId;
 
-	private boolean isCompleted;
+	private Boolean isCompleted;
 
 	private String description;
 
-	private LocalTime deadline;
+	private LocalDate deadline;
 
-	private LocalTime postedDate;
+	private LocalDate postedDate;
 
 	@ManyToOne
 	private CategoryEntity category;
