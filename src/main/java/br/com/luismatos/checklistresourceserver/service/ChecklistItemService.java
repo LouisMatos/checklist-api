@@ -90,6 +90,7 @@ public class ChecklistItemService {
 		checklistItemEntity.setDescription(description);
 		checklistItemEntity.setPostedDate(LocalDate.now());
 		checklistItemEntity.setCategory(categoryEntity);
+		checklistItemEntity.setIsCompleted(isCompleted);
 
 		log.debug("Adicionando novo Checklist item [ checklistItem = {} ]", checklistItemEntity);
 
@@ -120,6 +121,21 @@ public class ChecklistItemService {
 
 		this.checklistItemRepository.delete(checklistItemEntity);
 
+	}
+
+	public void updateIsCompleteStatus(String guid, boolean isComplete) {
+		if (!StringUtils.hasText(guid)) {
+			throw new IllegalArgumentException("Guid não pode ser nulo ou vazio");
+		}
+		ChecklistItemEntity retrievedItem = this.checklistItemRepository.findByGuid(guid)
+				.orElseThrow(() -> new ResourceNotFoundException("Item da lista de verificação não encontrado"));
+
+		log.debug("Atualizando o status do item da lista de verificação concluído [ guid ={}, isCompete={} ]", guid,
+				isComplete);
+
+		retrievedItem.setIsCompleted(isComplete);
+
+		this.checklistItemRepository.save(retrievedItem);
 	}
 
 }
