@@ -40,7 +40,7 @@ public class ChecklistResourceServerApplication {
 
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:4200")
+				registry.addMapping("/**").allowedOrigins("http://estudo-checklist-spa.s3-website-us-east-1.amazonaws.com/")
 						.allowedMethods("GET", "PUT", "POST", "DELETE").maxAge(900)
 						.allowedHeaders("Origin", "X-requested-With", "Content-Type", "Accept", "Authorization");
 			}
