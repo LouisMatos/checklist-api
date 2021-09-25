@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.luismatos.checklistresourceserver.dto.ChecklistItemDTO;
+import br.com.luismatos.checklistresourceserver.dto.newResourceDTO;
 import br.com.luismatos.checklistresourceserver.entity.ChecklistItemEntity;
 import br.com.luismatos.checklistresourceserver.service.ChecklistItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/v1/api/checklist-items")
@@ -43,8 +47,11 @@ public class ChecklistItemController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	@Operation(description = "Inserido um novo checklist item")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Criado um novo Checklist item"),
+			@ApiResponse(responseCode = "422", description = "guid da categoria não foi encontrado") })
 	@PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> createNewChecklistItem(@RequestBody ChecklistItemDTO checklistItemDTO)
+	public ResponseEntity<newResourceDTO> createNewChecklistItem(@RequestBody ChecklistItemDTO checklistItemDTO)
 			throws ValidationException {
 
 		if (checklistItemDTO.getCategory().getGuid() == null) {
@@ -55,7 +62,7 @@ public class ChecklistItemController {
 				checklistItemDTO.getDescription(), checklistItemDTO.getIsCompleted(), checklistItemDTO.getDeadline(),
 				checklistItemDTO.getCategory().getGuid());
 
-		return new ResponseEntity<>(checklistItemEntity.getGuid(), HttpStatus.CREATED);
+		return new ResponseEntity<>(new newResourceDTO(checklistItemEntity.getGuid()), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)

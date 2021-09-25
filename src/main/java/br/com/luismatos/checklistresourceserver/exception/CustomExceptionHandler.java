@@ -2,6 +2,8 @@ package br.com.luismatos.checklistresourceserver.exception;
 
 import java.time.LocalDate;
 
+import javax.validation.ValidationException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,4 +29,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 	}
 
+	@ExceptionHandler(ValidationException.class)
+	public final ResponseEntity<ExceptionalResponde> handleValidationException(
+			ValidationException validationException) {
+		log.error("Um erro ocorreu ao validar a chamada da api: {}", validationException);
+
+		return new ResponseEntity<>(new ExceptionalResponde(LocalDate.now(), validationException.getMessage(),
+				HttpStatus.UNPROCESSABLE_ENTITY), HttpStatus.UNPROCESSABLE_ENTITY);
+
+	}
 }

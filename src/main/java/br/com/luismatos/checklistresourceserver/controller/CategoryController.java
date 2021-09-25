@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.luismatos.checklistresourceserver.dto.CategoryDTO;
+import br.com.luismatos.checklistresourceserver.dto.newResourceDTO;
 import br.com.luismatos.checklistresourceserver.entity.CategoryEntity;
 import br.com.luismatos.checklistresourceserver.service.CategoryService;
 
@@ -43,11 +44,11 @@ public class CategoryController {
 	}
 
 	@PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> addNewCategory(@RequestBody CategoryDTO categoryDTO) {
+	public ResponseEntity<newResourceDTO> addNewCategory(@RequestBody CategoryDTO categoryDTO) {
 
 		CategoryEntity categoryEntity = this.categoryService.addNewCategory(categoryDTO.getName());
 
-		return new ResponseEntity<String>(categoryEntity.getGuid(), HttpStatus.CREATED);
+		return new ResponseEntity<>(new newResourceDTO(categoryEntity.getGuid()), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
