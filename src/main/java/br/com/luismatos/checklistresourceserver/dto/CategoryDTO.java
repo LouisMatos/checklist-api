@@ -3,11 +3,19 @@ package br.com.luismatos.checklistresourceserver.dto;
 import javax.validation.constraints.NotBlank;
 
 import br.com.luismatos.checklistresourceserver.entity.CategoryEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class CategoryDTO {
 
 	private String guid;
