@@ -1,6 +1,6 @@
 package br.com.luismatos.checklistresourceserver.entity;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,8 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Entity
+@Entity(name = "ChecklistItem")
 @Table(indexes = { @Index(name = "IDX_GUID_CK_IT", columnList = "guid") })
 public class ChecklistItemEntity extends BaseEntity {
 
@@ -29,13 +27,13 @@ public class ChecklistItemEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long checklistItemId;
 
-	private boolean isCompleted;
+	private Boolean isCompleted;
 
 	private String description;
 
-	private LocalTime deadline;
+	private LocalDate deadline;
 
-	private LocalTime postedDate;
+	private LocalDate postedDate;
 
 	@ManyToOne
 	private CategoryEntity category;
